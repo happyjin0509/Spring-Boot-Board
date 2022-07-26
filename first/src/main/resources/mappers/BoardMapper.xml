@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fun.mappers.BoardMapper">
+
+  <select id="selectBoardList" resultType="com.fun.vo.Board">
+    select * from board
+  </select>
+  
+    <insert id="insertBoard" parameterType="com.fun.vo.Board">
+  
+  	insert into board (article_no, member_id, title, content, regdate, read_cnt)
+  	 VALUES (board_seq.nextval, #{member_id},#{title},#{content}, sysdate, 0) 
+  	 
+  </insert>
+  
+ <select id="getBoardContent" resultType="com.fun.vo.Board">
+    select * from board where article_no = #{article_no}
+  </select>
+  
+
+ <!--   
+  <update id="updateBoard" parameterType="com.fun.vo.Board">
+  	update board set member_id = #{member_id}, title = #{title}, text = #{text}, regdate = now(), read_cnt = #{read_cnt}		
+  	where article_no = ${article_no}
+
+  </update>
+  
+  <delete id="deleteBoard">
+  	delete from board where article_no = #{article_no}
+  </delete> -->
+  
+  <update id="updateViewCnt" >
+  	update board set read_cnt = read_cnt + 1 where	article_no = #{article_no}	
+  
+  </update>
+
+</mapper>
